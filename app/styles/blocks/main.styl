@@ -22,13 +22,17 @@
 		flex-grow 1
 		margin-top -28px
 		padding-left 22px
-		&_name,
-		&_year,
+		&_name
+		&_year
 		&_address
 			background url("../images/name.png") right 35px no-repeat
-		&_skype,
+		&_skype
 		&_mail
 			background: url("../images/skype_emailLine.png") 6px 55px no-repeat
+		&_date
+			background: url("../images/skype_emailLine.png") -100px 55px no-repeat
+			width 215px
+			flex-grow 0
 	&__question
 		white-space nowrap
 		display inline-block
@@ -36,48 +40,166 @@
 
 .field-radio
 	margin-top 20px
-
-.field-radio__link
-	color #014f98
-	text-decoration none
-	border-bottom 1px solid
-	line-height 20px
-	display inline-block
+	&__link
+		color #014f98
+		text-decoration none
+		border-bottom 1px solid
+		line-height 20px
+		display inline-block
+		letter-spacing .01em
+	&__question
+		margin-right 10px
+	&__checker
+		position relative
+		display inline-block
+		margin-left 16px
+	&__label
+		margin-left 41px
+		display inline-block
+		letter-spacing -0.024em
+	&__button
+		opacity 0
+		width 44px
+		height 44px
+		position absolute
+		top 0
+		left 0
+		z-index 1
+		&:checked + .field-radio__ok
+			opacity 1
+	&__change
+		position absolute
+		width 19px
+		sprite($radio)
+		display inline-block
+		top 5px
+	&__ok
+		sprite($radio_ok)
+		display inline-block
+		position absolute
+		bottom 6px
+		left 9px
+		opacity 0
 
 .notice
 	color #3d3d3d
 	font 400 14px 'PT Sans'
-	line-height 22px
+	line-height 23px
+	padding-left 19px
+	letter-spacing -0.006em
+	width 771px
+	position relative
+	&:before
+		content ''
+		display block
+		sprite($star)
+		position absolute
+		top 5px
+		left 1px
 
 .points-container
+	margin-top 21px
+	margin-bottom: 55px
 	clearfix()
 
 .points
 	float left
-
-.point__change
+	width 260px
 	position relative
-	width 19px
-	input
+	&:last-child
+		padding-left 19px
+
+.point
+	height 35px
+	position relative
+	&__change
+		position absolute
+		width 19px
+		sprite($checkbox)
+		display inline-block
+		top 3px
+	&__input
 		opacity 0
-	&:before
-		content ''
-		display: block
 		width 19px
 		height 19px
+		position absolute
 		top 0
 		left 0
+		z-index 1
+		&:checked + .point__ok
+			opacity 1
+	&__ok
+		sprite($ok)
+		display inline-block
 		position absolute
-		sprite($checkbox)
+		bottom 2px
+		left 3px
+		opacity 0
+	&__label
+		line-height 25px
+		margin-left 28px
+		display inline-block
+		letter-spacing -0.024em
 
-.range__item
-	color #2f1b15
-	font 700 13px 'PT Sans'
-	line-height 36px
+.jsLavel
+	padding-left 11px
+	margin-bottom 40px
 
 .h2
 	margin-top 20px
 	height 48px
+	letter-spacing 0.006em
 
-.point
-	height 34px
+.Range
+	width 760px
+	margin-left 2px
+	height 60px
+	&__track
+		position relative
+		cursor pointer
+		sprite($range)
+		margin 5px -6px 0
+	&__drag
+		display block
+		width 10px
+		height inherit
+		position relative
+		z-index 2
+		cursor pointer
+		transition .5s ease
+		sprite($drag)
+		top 8px
+		&_first
+			margin-left 9px
+		&_last
+			margin-left -13px
+	&__items
+		position relative
+		top -12px
+		display flex
+		align-items flex-start
+	&__item
+		color #2f1b15
+		font 700 13px 'PT Sans'
+		line-height 36px
+		&_no
+			display inline-block
+			padding-left 2px
+			width 146px
+		&_ready
+			display inline-block
+			width 228px
+			line-height 30px
+		&_ready-and-build
+			display inline-block
+			width 172px
+			line-height 19px
+			padding-top 7px
+		&_build
+			display inline-block
+			text-align right
+			width 218px
+			line-height 45px
+
+
+

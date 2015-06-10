@@ -14,54 +14,74 @@
 			}
 		}
 
-		function updateDrag(event) {
+		function updateDrag(event, forse) {
 			event = event || window.event;
-			Position = isVertical ? event.pageY : event.pageX;
+			Position = event.pageX;
 			if (!Position) {
-				if (isVertical) {
-					Position = event.clientY + body[scrollTop] + docElement[scrollTop];
-				} else {
-					Position = event.clientX + body[scrollLeft] + docElement[scrollLeft];
-				}
+				Position = event.clientX + body[scrollLeft] + docElement[scrollLeft];
 			}
 
 			if (down && Position >= rangeOffset && Position <= (rangeOffset + rangeWidth)) {
 				cachePosition = Math.round(((Position - rangeOffset) / rangeWidth) * 100);
-				if (Array.isArray(step)) {
-					for (var i = 0; i < length; i++) {
-						if (cachePosition === step[i]) {
-							paint();
-						}
-					}
+				if (forse) {
+					calcPosition();
+					config.drag(cachePosition);
 				} else {
-					if (!Boolean(cachePosition % step)) {
-						paint();
+					paint();
+				}
+			}
+		}
+
+		function calcPosition() {
+			var i = 0, arr = [], obj = {}, rez, id = null;
+			for (; i < length; i++) {
+				if (cachePosition != step[i]) {
+					if (cachePosition > step[i]) {
+						rez = cachePosition - step[i];
+					} else {
+						rez = step[i] - cachePosition;
 					}
+					arr.push(rez);
+					obj[rez] = i;
+				} else {
+					id = i;
+					break;
+				}
+			}
+			if (id === null) id = obj[Math.min.apply(null, arr)];
+			cachePosition = step[id];
+			paint();
+			if (id === 0) {
+				drag[className] = RangeClass + '__drag ' + RangeClass + '__drag_first';
+			} else {
+				if (id === length - 1) {
+					drag[className] = RangeClass + '__drag ' + RangeClass + '__drag_last';
+				} else {
+					drag[className] = RangeClass + '__drag ';
 				}
 			}
 		}
 
 		function paint() {
 			drag.style[Style] = ((cachePosition / 100) * rangeWidth - (dragWidth / 2)) + 'px';
-			config.drag(cachePosition);
 		}
 
 		function initDrag() {
-			woh = drag[Width];
-			cachePosition = ((config.value / 100) * range[Width]);
-			drag.style[Style] = (cachePosition - (woh / 2)) + 'px';
-			config.drag(config.value);
+			rangeWidth = range[Width];
+			rangeOffset = range[Offset];
+			dragWidth = drag[Width];
+			cachePosition = config.value;
+			calcPosition();
 		}
 
 		var
 			F = false,
 			defaults = {
 				value: 0, // set default value on initiation from `0` to `100` (percentage based)
-				vertical: F,
 				drag: function (value) {
 					console.log(value);
 				},
-				step: 20 // set number from `0` to `100` or array [0,20,50,100]
+				step: [0, 20, 50, 100]
 			};
 
 		for (var item in defaults) {
@@ -80,7 +100,6 @@
 			createElement = 'createElement',
 			appendChild = 'appendChild',
 			className = 'className',
-			scrollTop = 'scrollTop',
 			scrollLeft = 'scrollLeft',
 			doc = document,
 			body = doc.body,
@@ -88,12 +107,14 @@
 			range = doc[createElement]('div'),
 			drag = doc[createElement]('span'),
 			down = F,
-			rangeWidth, rangeOffset, dragWidth, cachePosition, woh, Position,
-			isVertical = config.vertical,
-			RangeClass = (isVertical ? 'Range_vertical' : 'Range'),
-			Width = isVertical ? 'offsetHeight' : 'offsetWidth',
-			Offset = isVertical ? 'offsetTop' : 'offsetLeft',
-			Style = isVertical ? 'top' : 'left';
+			cachePosition, woh, Position,
+			RangeClass = 'Range',
+			Width = 'offsetWidth',
+			Offset = 'offsetLeft',
+			Style = 'left',
+			rangeWidth = range[Width],
+			rangeOffset = range[Offset],
+			dragWidth = drag[Width];
 
 		elem[className] = RangeClass;
 		range[className] = RangeClass + '__track';
@@ -112,7 +133,8 @@
 			updateDrag(e);
 		});
 
-		on(doc, mouse + 'up', function () {
+		on(doc, mouse + 'up', function (e) {
+			updateDrag(e, true);
 			down = F;
 		});
 
@@ -130,8 +152,8 @@
 	}
 
 	simple_range(document.getElementById('Range'), {
-		value: 20,
-		step: [0, 20, 50, 100]
+		value: 100,
+		step: [0, 20, 49, 100]
 	});
 
 })();

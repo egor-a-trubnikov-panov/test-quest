@@ -1,7 +1,8 @@
 mixin point(opt)
-	- opt.checked = opt.checked ? 'checked' : '';
+	- opt.checked = !!opt.checked
 	- opt.value = opt.value ? opt.value.toString() : opt.name.toString();
 	li.point
 		span.point__change
-			input(id=opt.name name=opt.name type='checkbox' checked=opt.checked)
+			input.point__input(id=opt.name name=opt.name type='checkbox' checked=opt.checked )
+			span.point__ok
 		label.point__label(for=opt.name)= opt.value
