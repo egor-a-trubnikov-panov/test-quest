@@ -35,7 +35,7 @@
 		function calcPosition() {
 			var i = 0, arr = [], obj = {}, rez, id = null;
 			for (; i < length; i++) {
-				if (cachePosition != step[i]) {
+				if (cachePosition !== step[i]) {
 					if (cachePosition > step[i]) {
 						rez = cachePosition - step[i];
 					} else {
@@ -48,7 +48,9 @@
 					break;
 				}
 			}
-			if (id === null) id = obj[Math.min.apply(null, arr)];
+			if (id === null) {
+				id = obj[Math.min.apply(null, arr)];
+			}
 			cachePosition = step[id];
 			paint();
 			if (id === 0) {
