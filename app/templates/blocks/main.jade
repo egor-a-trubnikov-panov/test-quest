@@ -1,0 +1,52 @@
+form.content
+	+field({id: 'name', name: 'Полное ФИО', value: 'Иванов Иван Иванович'})
+	+field({id: 'year', name: 'Год рождения', value: '1990'})
+	+field({id: 'address', name: 'Место жительства', value: 'г. Иваново, Россия'})
+	+field({id: 'skype', name: 'Скайп', value: 'ivanov'})
+	+field({id: 'mail', name: 'Почта', value: 'ivanov@gmail.com'})
+
+	.field-radio
+		span.field-radio__question Выпускник&nbsp;
+			a.field-radio__link(href='#') htmlacademy.ru
+		span.field-radio__checkers
+			input(type='radio' id='radio-yes' name='r' checked)
+			label.field-radio__label(for='radio-yes') Да
+			input(type='radio' id='radio-no' name='r')
+			label.field-radio__label(for='radio-no') Нет
+
+	h2.h2 Практические навыки
+	.notice Отметьте только те технологии и типы задач, с которыми вы хорошо знакомы. Отсутсвие опыта отнюдь не означает, что у вас меньше шансов стать нашим сотрудником. Это означает, что вы будете получать те задачи, с которыми гарантировано будете справляться.
+
+	.points-container
+		ul.points
+			+point({name: 'bem', value: 'Методология БЭМ', checked: true})
+			+point({name: 'jQuery', checked: true})
+			+point({name: 'GRUNT', value: 'Использую GRUNT', checked: true})
+			+point({name: 'HAML', checked: true})
+			+point({name: 'SASS', checked: true})
+			+point({name: 'LESS', checked: true})
+			+point({name: 'CoffeeScript', checked: true})
+		ul.points
+			+point({name: 'Jade', checked: true})
+			+point({name: 'Stylus', checked: true})
+			+point({name: 'Angular', value: 'Знаю (изучаю) Angular', checked: true})
+			+point({name: 'Android', value: 'Верстка под Android'})
+			+point({name: 'iOS', value: 'Верстка под iOS'})
+			+point({name: 'Windows_Phone', value: 'Верстка под Windows Phone'})
+		ul.points
+			+point({name: 'EMAIL', value: 'Верстка рассылок', checked: true})
+			+point({name: 'Adaptive', value: 'Адаптивная верстка', checked: true})
+			+point({name: 'Dropbox', value: 'Использую Dropbox', checked: true})
+			+point({name: 'Gmail', value: 'Использую Gmail', checked: true})
+			+point({name: 'GitHub', value: 'Использую GitHub', checked: true})
+
+	h2.h2 Уровень владения JavaScript
+
+	#Range
+	ul.range__items
+		li.range__item Не владею
+		li.range__item Использую готовые решения
+		li.range__item Использую готовые решения и умею их переделывать
+		li.range__item Пишу сложные скрипты
+
+	+field({id: 'date', name: 'Дата заполнения', value: '09.06.15'})

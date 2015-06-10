@@ -1,0 +1,4 @@
+mixin field(opt)
+	.field
+		label(class='field__question' for=opt.id)= opt.name
+		input(class='field__answer field__answer_'+opt.id type='text' name=opt.id id=opt.id value=opt.value)
